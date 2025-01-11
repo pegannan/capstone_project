@@ -61,6 +61,58 @@ function getWeatherIcon(id) {
     else return 'clouds.svg'
 }
 
+//change background
+function getWeatherBackground(main) {
+
+    switch (main) {
+        case "Thunderstorm":
+            document.body.style.background = "url(thunderstorm.gif)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+        case "Drizzle":
+            document.body.style.background = "url(drizzle.gif)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+        case "Rain":
+            document.body.style.background = "url(rain.gif)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+        case "Snow":
+            document.body.style.background = "url(snow.jpg)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+        case "Atmosphere":
+            document.body.style.background = "url(fog.gif)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+    case "Mist":
+        document.body.style.background = "url(atmosphere.jpg)", 
+        document.body.style.backgroundSize = "cover",
+        document.body.style.backgroundPosition = "Center"
+    break;
+        case "Clear":
+            document.body.style.background = "url(clear.jpg)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+        case "Clouds":
+            document.body.style.background = "url(clouds.jpg)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "Center"
+    break;
+        default:
+            document.body.style.background = "url(clear.jpg)", 
+            document.body.style.backgroundSize = "cover",
+            document.body.style.backgroundPosition = "center"  
+        
+}
+
+
 function getCurrentDate() {
     const currentDate = new Date()
    const options = {
@@ -87,9 +139,9 @@ async function updateWeatherInfo(city) {
         wind: {speed},
     } = weatherData
 
-    countryTxt.textContent = name + ',' + '' + country
+    countryTxt.textContent = name + ', ' + country
     tempTxt.textContent = Math.round (temp) +'°C'
-    feelsLikeTxt.textContent ='Feels like' + '' + Math.round (feels_like) +'°C'
+    feelsLikeTxt.textContent ='Feels like ' + Math.round (feels_like) +'°C'
     conditionTxt.textContent = description
     humidityValueTxt.textContent = humidity + '%'
     windValueTxt.textContent = speed + 'M/s'
@@ -98,6 +150,8 @@ async function updateWeatherInfo(city) {
     console.log(getCurrentDate())
     weatherSummaryImg.src = `weather/${getWeatherIcon(id)}`
 
+   getWeatherBackground(main);
+    
     await updateForecastInfo(city) 
         showDisplaySection(weatherInfoSection);
     } 
@@ -150,4 +204,22 @@ function showDisplaySection(section){
         section.style.display = 'flex';
     };
 
+//language dropdown
+function dropDown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
     
